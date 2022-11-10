@@ -2,22 +2,24 @@
 import { search } from '@/api/spotify';
 import { ref } from 'vue';
 
-const artists = ref([]);
+const response: Array<any> = ref(null);
 
 async function init() {
-  artists.value = await search('ziak', 'artist');
+  response.value = await search('ziak', 'artist');
 }
 
 init();
-
-console.log(artists);
-
-// let image = artists.value.items[0].images[0];
 </script>
 
 <template>
   <main class="p-16 bg-[#E1E9ED]">
-    <img :href="artists.items[0].images[0]" alt="" />
-    <pre>{{ artists }}</pre>
+    <img
+      v-if="response !== null"
+      :src="response.artists.items[0].images[0].url"
+      alt=""
+    />
+    <h1 v-if="response !== null" class="">
+      {{ response.artists.items[0].name }}
+    </h1>
   </main>
 </template>
