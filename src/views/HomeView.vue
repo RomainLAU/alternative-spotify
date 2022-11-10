@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { search } from '@/api/spotify';
+import { search, searchArtist } from '@/api/spotify';
 import { ref } from 'vue';
 
 const response: Array<any> = ref(null);
 
 async function init() {
-  response.value = await search('ziak', 'artist');
+  response.value = await searchArtist('Imagine Dragons');
+  console.log(response.value);
 }
 
 init();
@@ -13,13 +14,9 @@ init();
 
 <template>
   <main class="p-16 bg-[#E1E9ED]">
-    <img
-      v-if="response !== null"
-      :src="response.artists.items[0].images[0].url"
-      alt=""
-    />
-    <h1 v-if="response !== null" class="">
-      {{ response.artists.items[0].name }}
+    <h1 v-if="response !== null" class="text-9xl font-extrabold">
+      {{ response.name }}
     </h1>
+    <img v-if="response !== null" :src="response.images[0].url" alt="" />
   </main>
 </template>
