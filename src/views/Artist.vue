@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { search, searchArtist } from '@/api/spotify';
+import { searchArtist } from '@/api/spotify';
 import { ref } from 'vue';
-import type { Artist } from '../types/artist';
+import type { Artist } from '../../types/artist';
 
 const response = ref<any>(null);
 const artist = ref<Artist>(null);
