@@ -74,3 +74,17 @@ export type Album = {
   type: string;
   uri: string;
 };
+
+export type SearchAlbums = {
+  href: string;
+  items: Array<Album>;
+  limit: number;
+  next: string | null;
+  offset: number;
+  previous: string | null;
+  total: number;
+};
+
+export type Albums = {
+  albums: SearchAlbums;
+};
