@@ -1,6 +1,12 @@
+import type { Artist } from 'types/artist';
+import type { LocationQueryValue } from 'vue-router';
 import { instance } from './index';
 
-export function search(query: string, type: string, limit = 10) {
+export async function search(
+  query: string | LocationQueryValue[],
+  type: string,
+  limit = 10
+) {
   return instance
     .get('/search', {
       params: {
@@ -14,7 +20,10 @@ export function search(query: string, type: string, limit = 10) {
     });
 }
 
-export async function searchArtist(query: string, type = 'artist') {
+export async function searchArtist(
+  query: string | LocationQueryValue[],
+  type = 'artist'
+): Promise<Artist> {
   const response = await search(query, type);
   const artistId = response.artists.items[0].id;
 

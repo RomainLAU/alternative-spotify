@@ -1,14 +1,22 @@
 <script setup lang="ts">
 import { searchArtist } from '@/api/spotify';
-import { ref } from 'vue';
 import type { Artist } from '../../types/artist';
+import { ref } from 'vue';
+import router from '@/router/index';
+import type { LocationQueryValue } from 'vue-router';
 
-const response = ref<any>(null);
-const artist = ref<Artist>(null);
+const artist = ref<Artist | null>(null);
+const artistParam: string | LocationQueryValue[] = router.currentRoute.value
+  .query.artist
+  ? router.currentRoute.value.query.artist
+  : '';
 
 async function init() {
-  response.value = await searchArtist('Imagine Dragons');
-  artist.value = response.value;
+  if (artistParam.length === 0) {
+    router.push({ path: '/', replace: true });
+  } else {
+    artist.value = await searchArtist(artistParam);
+  }
 }
 
 init();

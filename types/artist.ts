@@ -24,7 +24,7 @@ export type Artist = {
   popularity: number;
   type: string;
   uri: string;
-} | null;
+};
 
 export type SearchArtists = {
   href: string;
