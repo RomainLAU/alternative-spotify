@@ -7,8 +7,8 @@ import type { LocationQueryValue } from 'vue-router';
 
 const artist = ref<Artist | null>(null);
 const artistParam: string | LocationQueryValue[] = router.currentRoute.value
-  .query.artist
-  ? router.currentRoute.value.query.artist
+  .query.name
+  ? router.currentRoute.value.query.name
   : '';
 
 async function init() {
