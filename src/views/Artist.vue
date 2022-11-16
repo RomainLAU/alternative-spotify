@@ -3,12 +3,13 @@ import { searchArtist } from '@/api/spotify';
 import type { Artist } from '../../types/artist';
 import { ref } from 'vue';
 import router from '@/router/index';
-import type { LocationQueryValue } from 'vue-router';
+import { useRoute, type LocationQueryValue } from 'vue-router';
+
+const route = useRoute();
 
 const artist = ref<Artist | null>(null);
-const artistParam: string | LocationQueryValue[] = router.currentRoute.value
-  .query.name
-  ? router.currentRoute.value.query.name
+const artistParam: string | LocationQueryValue[] = route.query.name
+  ? route.query.name
   : '';
 
 async function init() {
