@@ -42,21 +42,25 @@ init();
 
 <template>
   <main class="p-16 bg-[#0f172a] text-white min-h-screen" v-if="album">
-    <div class="flex">
+    <div class="flex gap-8">
       <img :src="album.images[1].url" :alt="album.name" />
-      <div class="flex flex-col">
-        <p>{{ album.album_type }}</p>
-        <h1 class="text-9xl font-extrabold">
+      <div class="flex flex-col justify-end">
+        <p class="uppercase font-bold">{{ album.album_type }}</p>
+        <h1 class="text-9xl font-extrabold mb-12">
           {{ album.name }}
         </h1>
         <div class="flex items-center">
-          <ul class="flex items-center">
+          <ul class="flex items-center max-w-[50px]">
             <li
               v-for="(artist, index) in album.artists"
               :key="artist.id"
-              class="flex items-center"
+              class="flex items-center font-semibold"
             >
-              {{ artist.name }}
+              <router-link
+                :to="'/artist?name=' + artist.name"
+                class="hover:underline font-semibold"
+                >{{ artist.name }}</router-link
+              >
               <p v-if="index !== album.artists.length - 1">, &nbsp;</p>
             </li>
           </ul>
@@ -68,7 +72,7 @@ init();
           &nbsp;
           <p>{{ album.total_tracks }} titres,</p>
           &nbsp;
-          <p>{{ totalDuration }}</p>
+          <p class="opacity-75">{{ totalDuration }}</p>
         </div>
       </div>
     </div>

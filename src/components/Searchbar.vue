@@ -1,6 +1,4 @@
 <script setup lang="ts">
-// const emit = defineEmits(['update:searchValue']);
-
 import { ref } from 'vue';
 import { useRoute, type LocationQueryValue } from 'vue-router';
 
