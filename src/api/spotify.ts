@@ -1,3 +1,4 @@
+import type { Album } from 'types/album';
 import type { Artist } from 'types/artist';
 import type { LocationQueryValue } from 'vue-router';
 import { instance } from './index';
@@ -5,7 +6,7 @@ import { instance } from './index';
 export async function search(
   query: string | LocationQueryValue[],
   type: string,
-  limit = 10
+  limit = 20
 ) {
   return instance
     .get('/search', {
@@ -29,6 +30,16 @@ export async function searchArtist(
 
   return instance
     .get(`https://api.spotify.com/v1/artists/${artistId}`)
+    .then((response) => {
+      return response.data;
+    });
+}
+
+export async function searchAlbum(
+  albumId: string | LocationQueryValue[]
+): Promise<Album> {
+  return instance
+    .get(`https://api.spotify.com/v1/albums/${albumId}`)
     .then((response) => {
       return response.data;
     });

@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/Home.vue';
 import ArtistView from '../views/Artist.vue';
 import SearchView from '../views/Search.vue';
+import AlbumView from '../views/Album.vue';
 import Login from '../views/Login.vue';
 import Callback from '../views/Callback.vue';
 import defaultLayout from '@/layout/default.vue';
@@ -42,6 +43,18 @@ const router = createRouter({
           path: '/search/:search?',
           name: 'search',
           component: SearchView,
+        },
+      ],
+    },
+    {
+      path: '/album/:id',
+      name: 'album',
+      component: defaultLayout,
+      children: [
+        {
+          path: '/album/:id',
+          name: 'album',
+          component: AlbumView,
         },
       ],
     },
