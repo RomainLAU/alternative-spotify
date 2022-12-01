@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import { searchArtist } from '@/api/spotify';
+import { searchArtist, searchTopTracks } from '@/api/spotify';
 import type { Artist } from '../../types/artist';
 import { ref } from 'vue';
 import { useRoute, type LocationQueryValue } from 'vue-router';
+import type { TopTracks } from 'types/album';
+import Tracks from '@/components/Tracks.vue';
 
 const route = useRoute();
 
 const artist = ref<Artist | null>(null);
+const topTracks = ref<TopTracks | null>(null);
+
 const artistParam: string | LocationQueryValue[] = route.query.name
   ? route.query.name
   : '';
@@ -14,10 +18,9 @@ const artistParam: string | LocationQueryValue[] = route.query.name
 async function init() {
   if (artistParam.length !== 0) {
     artist.value = await searchArtist(artistParam);
+    topTracks.value = await searchTopTracks(artistParam);
   }
 }
-
-console.log(route.fullPath);
 
 init();
 </script>
@@ -33,6 +36,7 @@ init();
     <img :src="artist.images[1].url" :alt="artist.name" />
     <p v-if="artist.followers.total > 1000">Verified artist</p>
     <p v-else>Unverified artist</p>
+    <Tracks :tracks="topTracks?.tracks.album" />
   </main>
   <main
     v-else

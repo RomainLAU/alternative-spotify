@@ -1,4 +1,4 @@
-import type { Album } from 'types/album';
+import type { Album, TopTracks } from 'types/album';
 import type { Artist } from 'types/artist';
 import type { LocationQueryValue } from 'vue-router';
 import { instance } from './index';
@@ -30,6 +30,20 @@ export async function searchArtist(
 
   return instance
     .get(`https://api.spotify.com/v1/artists/${artistId}`)
+    .then((response) => {
+      return response.data;
+    });
+}
+
+export async function searchTopTracks(
+  query: string | LocationQueryValue[],
+  type = 'artist'
+): Promise<TopTracks> {
+  const response = await search(query, type);
+  const artistId = response.artists.items[0].id;
+
+  return instance
+    .get(`https://api.spotify.com/v1/artists/${artistId}/top-tracks`)
     .then((response) => {
       return response.data;
     });
