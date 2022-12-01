@@ -4,6 +4,7 @@ import type { Album } from '../../types/album';
 import { ref } from 'vue';
 import { useRoute, type LocationQueryValue } from 'vue-router';
 import moment from 'moment';
+import Track from '@/components/Track.vue';
 
 const route = useRoute();
 
@@ -58,10 +59,10 @@ init();
             >
               <router-link
                 :to="'/artist?name=' + artist.name"
-                class="hover:underline font-semibold"
+                class="hover:underline font-semibold flex items-center"
                 >{{ artist.name }}</router-link
               >
-              <p v-if="index !== album.artists.length - 1">, &nbsp;</p>
+              <span v-if="index !== album.artists.length - 1">, &nbsp;</span>
             </li>
           </ul>
           &nbsp;
@@ -76,6 +77,17 @@ init();
         </div>
       </div>
     </div>
+    <table class="w-full border-separate border-spacing-x-0 border-spacing-y-3">
+      <tr class="text-[#b1b1b1]">
+        <th class="w-16 border-b border-slate-800 pb-3">#</th>
+        <th class="grow text-left border-b border-slate-800 pb-3">TITRE</th>
+        <th class="text-right border-b border-slate-800 pb-3">🕒</th>
+        <th class="border-b border-slate-800 pb-3"></th>
+      </tr>
+      <tbody v-for="track in album.tracks.items" class="mt-6">
+        <Track :track="track" :key="track.id" />
+      </tbody>
+    </table>
   </main>
   <main
     v-else
