@@ -13,7 +13,7 @@ defineProps<{ tracks: Tracks }>();
       <th class="text-right border-b border-slate-800 pb-3">🕒</th>
       <th class="border-b border-slate-800 pb-3"></th>
     </tr>
-    <tbody v-for="track in tracks.items" class="mt-6">
+    <tbody v-for="track in tracks.items" class="mt-6" :key="track.id">
       <Track :track="track" :key="track.id" />
     </tbody>
   </table>

@@ -7,7 +7,9 @@
     <router-link to="/" class="text-lg hover:font-semibold w-28"
       >Home</router-link
     >
-    <router-link to="/artist?name=Ziak" class="text-lg hover:font-semibold w-28"
+    <router-link
+      to="/artists/1nRbtbdYK51y71nVOxu332"
+      class="text-lg hover:font-semibold w-28"
       >Artist</router-link
     >
     <router-link to="/search" class="text-lg hover:font-semibold w-28"

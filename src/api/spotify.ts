@@ -22,28 +22,27 @@ export async function search(
 }
 
 export async function searchArtist(
-  query: string | LocationQueryValue[],
-  type = 'artist'
+  query: string | LocationQueryValue[]
+  // type = 'artist'
 ): Promise<Artist> {
-  const response = await search(query, type);
-  const artistId = response.artists.items[0].id;
+  // const response = await search(query, type);
+  // const artistId = response.artists.items[0].id;
 
   return instance
-    .get(`https://api.spotify.com/v1/artists/${artistId}`)
+    .get(`https://api.spotify.com/v1/artists/${query}`)
     .then((response) => {
       return response.data;
     });
 }
 
 export async function searchTopTracks(
-  query: string | LocationQueryValue[],
-  type = 'artist'
+  query: string | LocationQueryValue[]
+  // type = 'artist'
 ): Promise<TopTracks> {
-  const response = await search(query, type);
-  const artistId = response.artists.items[0].id;
-
+  // const response = await search(query, type);
+  // const artistId = response.artists.items[0].id;
   return instance
-    .get(`https://api.spotify.com/v1/artists/${artistId}/top-tracks`)
+    .get(`https://api.spotify.com/v1/artists/${query}/top-tracks?market=FR`)
     .then((response) => {
       return response.data;
     });

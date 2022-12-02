@@ -31,16 +31,24 @@ init();
           :key="album.id"
           class="max-w-[300px] bg-[#17233d] p-4 pb-8 rounded-lg hover:bg-[#1d2b49]"
         >
-          <router-link :to="`/album/${album.id}`">
+          <router-link :to="`/albums/${album.id}`">
             <img :src="album.images[1].url" alt="album.name" />
             <p
               class="max-w-[300px] whitespace-nowrap text-ellipsis overflow-hidden mt-4"
             >
               {{ album.name }}
             </p>
-            <p class="max-w-[300px] flex whitespace-nowrap overflow-hidden text-ellipsis">
-              {{ moment(album.release_date).format('YYYY') }}&nbsp;<span class="text-xs self-center">●</span> &nbsp;
-              <ul class="flex items-center whitespace-nowrap overflow-hidden text-ellipsis">
+            <div
+              class="max-w-[300px] flex whitespace-nowrap overflow-hidden text-ellipsis"
+            >
+              {{ moment(album.release_date).format('YYYY') }}&nbsp;<span
+                class="text-xs self-center"
+                >●</span
+              >
+              &nbsp;
+              <ul
+                class="flex items-center whitespace-nowrap overflow-hidden text-ellipsis"
+              >
                 <li
                   v-for="(artist, index) in album.artists"
                   :key="artist.id"
@@ -50,7 +58,7 @@ init();
                   <p v-if="index !== album.artists.length - 1">, &nbsp;</p>
                 </li>
               </ul>
-            </p>
+            </div>
           </router-link>
         </li>
       </ul>

@@ -2,11 +2,12 @@
 import { searchAlbum } from '@/api/spotify';
 import type { Album } from '../../types/album';
 import { ref } from 'vue';
-import { useRoute, type LocationQueryValue } from 'vue-router';
+import { useRoute, useRouter, type LocationQueryValue } from 'vue-router';
 import moment from 'moment';
 import Tracks from '@/components/Tracks.vue';
 
 const route = useRoute();
+const router = useRouter();
 
 const album = ref<Album | null>(null);
 
@@ -35,6 +36,8 @@ async function init() {
         totalDuration.value = `${convertingDuration.minutes()} min ${convertingDuration.seconds()} s`;
       }
     }
+  } else {
+    router.push('/search');
   }
 }
 
@@ -58,7 +61,7 @@ init();
               class="flex items-center font-semibold"
             >
               <router-link
-                :to="'/artist?name=' + artist.name"
+                :to="'/artists/' + artist.id"
                 class="hover:underline font-semibold flex items-center"
                 >{{ artist.name }}</router-link
               >

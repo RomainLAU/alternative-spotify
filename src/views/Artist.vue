@@ -2,23 +2,27 @@
 import { searchArtist, searchTopTracks } from '@/api/spotify';
 import type { Artist } from '../../types/artist';
 import { ref } from 'vue';
-import { useRoute, type LocationQueryValue } from 'vue-router';
+import { useRoute, useRouter, type LocationQueryValue } from 'vue-router';
 import type { TopTracks } from 'types/album';
-import Tracks from '@/components/Tracks.vue';
+import TopTracksList from '@/components/TopTracksList.vue';
 
 const route = useRoute();
+const router = useRouter();
 
 const artist = ref<Artist | null>(null);
 const topTracks = ref<TopTracks | null>(null);
 
-const artistParam: string | LocationQueryValue[] = route.query.name
-  ? route.query.name
-  : '';
+const artistParam = ref<string | LocationQueryValue[]>('');
 
 async function init() {
-  if (artistParam.length !== 0) {
-    artist.value = await searchArtist(artistParam);
-    topTracks.value = await searchTopTracks(artistParam);
+  artistParam.value = route.params.id ? route.params.id : '';
+
+  if (artistParam.value.length !== 0) {
+    router.push({ path: '/artists/' + artistParam.value, replace: true });
+    artist.value = await searchArtist(artistParam.value);
+    topTracks.value = await searchTopTracks(artistParam.value);
+  } else {
+    router.push('/');
   }
 }
 
@@ -30,13 +34,17 @@ init();
     class="p-16 bg-[#0f172a] text-white min-h-screen"
     v-if="artist !== null"
   >
-    <h1 class="text-9xl font-extrabold">
-      {{ artist.name }}
-    </h1>
-    <img :src="artist.images[1].url" :alt="artist.name" />
-    <p v-if="artist.followers.total > 1000">Verified artist</p>
-    <p v-else>Unverified artist</p>
-    <Tracks :tracks="topTracks?.tracks.album" />
+    <div class="flex gap-x-3 mb-16">
+      <img :src="artist.images[1].url" :alt="artist.id" />
+      <div class="flex flex-col justify-end">
+        <h1 class="text-9xl font-extrabold">
+          {{ artist.name }}
+        </h1>
+        <p v-if="artist.followers.total > 1000">Verified artist</p>
+        <p v-else>Unverified artist</p>
+      </div>
+    </div>
+    <TopTracksList v-if="topTracks" :topTracks="topTracks" />
   </main>
   <main
     v-else

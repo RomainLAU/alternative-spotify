@@ -23,12 +23,12 @@ const router = createRouter({
       ],
     },
     {
-      path: '/artist/:name?',
+      path: '/artists/:id',
       name: 'artist',
       component: defaultLayout,
       children: [
         {
-          path: '/artist/:name?',
+          path: '/artists/:id',
           name: 'artist',
           component: ArtistView,
         },
@@ -47,12 +47,12 @@ const router = createRouter({
       ],
     },
     {
-      path: '/album/:id',
+      path: '/albums/:id',
       name: 'album',
       component: defaultLayout,
       children: [
         {
-          path: '/album/:id',
+          path: '/albums/:id',
           name: 'album',
           component: AlbumView,
         },
