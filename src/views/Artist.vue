@@ -49,9 +49,5 @@ init();
   <main
     v-else
     class="p-16 bg-[#0f172a] text-white min-h-screen flex items-center flex-col pt-72"
-  >
-    <h1 class="text-6xl font-bold">404</h1>
-    <br />
-    <h1 class="text-6xl font-bold">Woops, we didn't find anything here...</h1>
-  </main>
+  ></main>
 </template>

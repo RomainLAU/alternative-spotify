@@ -23,11 +23,7 @@ export async function search(
 
 export async function searchArtist(
   query: string | LocationQueryValue[]
-  // type = 'artist'
 ): Promise<Artist> {
-  // const response = await search(query, type);
-  // const artistId = response.artists.items[0].id;
-
   return instance
     .get(`https://api.spotify.com/v1/artists/${query}`)
     .then((response) => {
@@ -37,10 +33,7 @@ export async function searchArtist(
 
 export async function searchTopTracks(
   query: string | LocationQueryValue[]
-  // type = 'artist'
 ): Promise<TopTracks> {
-  // const response = await search(query, type);
-  // const artistId = response.artists.items[0].id;
   return instance
     .get(`https://api.spotify.com/v1/artists/${query}/top-tracks?market=FR`)
     .then((response) => {
@@ -53,6 +46,14 @@ export async function searchAlbum(
 ): Promise<Album> {
   return instance
     .get(`https://api.spotify.com/v1/albums/${albumId}`)
+    .then((response) => {
+      return response.data;
+    });
+}
+
+export async function searchTrack(trackId: string): Promise<object> {
+  return instance
+    .get(`https://api.spotify.com/v1/tracks/${trackId}?market=FR`)
     .then((response) => {
       return response.data;
     });

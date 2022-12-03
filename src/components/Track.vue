@@ -1,15 +1,24 @@
 <script setup lang="ts">
 import moment from 'moment';
 import type { TrackItem } from '../../types/album';
+import { usePlayerStore } from '@/stores/player';
+
+const { updateTrack } = usePlayerStore();
 
 const props = defineProps<{ track?: TrackItem }>();
 
 const duration = moment.duration(props?.track?.duration_ms);
+
+const playTrack = (trackUrl: string, trackName: string) => {
+  updateTrack(trackUrl, trackName);
+};
 </script>
 
 <template>
   <tr
     class="text-[#b1b1b1] hover:text-white hover:bg-slate-600 p-4 cursor-pointer"
+    v-if="track && typeof track !== 'undefined'"
+    @click="playTrack(track?.preview_url, track?.name)"
   >
     <td class="text-center rounded-l-lg p-1">
       {{ track?.track_number }}

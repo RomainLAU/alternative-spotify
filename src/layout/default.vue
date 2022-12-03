@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Player from '@/components/Player.vue';
+</script>
 
 <template>
   <div
@@ -21,5 +23,10 @@
       >Login</router-link
     >
   </div>
-  <router-view></router-view>
+  <router-view :key="$route.fullPath"></router-view>
+  <div
+    class="flex items-center justify-between fixed bottom-0 w-full text-white p-4 bg-slate-800"
+  >
+    <Player />
+  </div>
 </template>

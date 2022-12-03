@@ -1,19 +1,24 @@
 <script setup lang="ts">
 import moment from 'moment';
-// import { useRouter } from 'vue-router';
 import type { TopTrack } from '../../types/album';
+import { usePlayerStore } from '@/stores/player';
+
+const { updateTrack } = usePlayerStore();
 
 const props = defineProps<{ topTrack?: TopTrack; index?: number }>();
 
 const duration = moment.duration(props?.topTrack?.duration_ms);
 
-// const router = useRouter();
+const playTrack = (trackUrl: string, trackName: string) => {
+  updateTrack(trackUrl, trackName);
+};
 </script>
 
 <template>
   <tr
     class="text-[#b1b1b1] hover:text-white hover:bg-slate-600 p-4 cursor-pointer"
     v-if="typeof index !== 'undefined' && topTrack"
+    @click="playTrack(topTrack?.preview_url, topTrack?.name)"
   >
     <td class="text-center rounded-l-lg p-1 w-12">
       <p>{{ index + 1 }}</p>

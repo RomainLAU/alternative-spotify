@@ -74,7 +74,11 @@ init();
           &nbsp;
           <span class="text-xs self-center">●</span>
           &nbsp;
-          <p>{{ album.total_tracks }} titres,</p>
+          <p>
+            {{ album.total_tracks }}
+            <span v-if="album.total_tracks > 1">titres</span
+            ><span v-else>titre</span>,
+          </p>
           &nbsp;
           <p class="opacity-75">{{ totalDuration }}</p>
         </div>
@@ -85,9 +89,5 @@ init();
   <main
     v-else
     class="p-16 bg-[#0f172a] text-white min-h-screen flex items-center flex-col pt-72"
-  >
-    <h1 class="text-6xl font-bold">404</h1>
-    <br />
-    <h1 class="text-6xl font-bold">Woops, we didn't find anything here...</h1>
-  </main>
+  ></main>
 </template>
