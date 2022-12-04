@@ -1,5 +1,5 @@
-import { AlbumArtist } from './album';
-import { Artist, ExternalUrls, Images } from './artist';
+import type { AlbumArtist } from './album';
+import type { Artist, ExternalUrls, Images } from './artist';
 
 export type ExternalIds = {
   irc: string;

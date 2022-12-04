@@ -1,5 +1,7 @@
 import type { Album, TopTracks } from 'types/album';
 import type { Artist } from 'types/artist';
+import type { Track } from 'types/track';
+import type { User } from 'types/user';
 import type { LocationQueryValue } from 'vue-router';
 import { instance } from './index';
 
@@ -12,13 +14,19 @@ export async function search(
     .get('/search', {
       params: {
         q: query,
-        type,
-        limit,
+        type: type,
+        limit: limit,
       },
     })
     .then((response) => {
       return response.data;
     });
+}
+
+export async function getUser(): Promise<User> {
+  return instance.get(`https://api.spotify.com/v1/me`).then((response) => {
+    return response.data;
+  });
 }
 
 export async function searchArtist(
@@ -51,7 +59,7 @@ export async function searchAlbum(
     });
 }
 
-export async function searchTrack(trackId: string): Promise<object> {
+export async function searchTrack(trackId: string): Promise<Track> {
   return instance
     .get(`https://api.spotify.com/v1/tracks/${trackId}?market=FR`)
     .then((response) => {

@@ -13,6 +13,8 @@ const albums = ref<SearchAlbums | null>(null);
 async function init() {
   if (route.query.query) {
     albums.value = (await search(route.query.query, 'album')).albums;
+  } else {
+    albums.value = (await search('Imagine dragons', 'album')).albums;
   }
 }
 
@@ -21,7 +23,7 @@ init();
 
 <template>
   <main
-    class="container-xl min-h-screen bg-[#0f172a] text-white flex flex-col p-16"
+    class="container-xl min-h-screen bg-[#0f172a] text-white flex flex-col p-16 transition-all"
   >
     <SearchBar />
     <div v-if="albums">
@@ -32,7 +34,11 @@ init();
           class="max-w-[300px] bg-[#17233d] p-4 pb-8 rounded-lg hover:bg-[#1d2b49]"
         >
           <router-link :to="`/albums/${album.id}`">
-            <img :src="album.images[1].url" alt="album.name" />
+            <img
+              :src="album.images[1].url"
+              alt="album.name"
+              class="object-contain"
+            />
             <p
               class="max-w-[300px] whitespace-nowrap text-ellipsis overflow-hidden mt-4"
             >

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { searchAlbum } from '@/api/spotify';
-import type { Album } from '../../types/album';
+import type { Album, TrackItem } from '../../types/album';
 import { ref } from 'vue';
 import { useRoute, useRouter, type LocationQueryValue } from 'vue-router';
 import moment from 'moment';
@@ -11,7 +11,7 @@ const router = useRouter();
 
 const album = ref<Album | null>(null);
 
-const totalDuration = ref<any>(0);
+const totalDuration = ref<string>('');
 
 const albumParam: string | LocationQueryValue[] = route.params.id
   ? route.params.id
@@ -24,7 +24,7 @@ async function init() {
     album.value = await searchAlbum(albumParam);
 
     if (album.value) {
-      album.value.tracks.items.forEach((track) => {
+      album.value.tracks.items.forEach((track: TrackItem) => {
         totalDuration.value += track.duration_ms;
       });
 
@@ -47,14 +47,20 @@ init();
 <template>
   <main class="p-16 bg-[#0f172a] text-white min-h-screen" v-if="album">
     <div class="flex gap-8">
-      <img :src="album.images[1].url" :alt="album.name" />
+      <img
+        :src="album.images[1].url"
+        :alt="album.name"
+        class="object-contain"
+      />
       <div class="flex flex-col justify-end">
         <p class="uppercase font-bold">{{ album.album_type }}</p>
-        <h1 class="text-9xl font-extrabold mb-12">
+        <h1
+          class="text-9xl font-extrabold mb-12 max-w-[900px] overflow-hidden text-ellipsis whitespace-nowrap"
+        >
           {{ album.name }}
         </h1>
         <div class="flex items-center">
-          <ul class="flex items-center max-w-[50px]">
+          <ul class="flex items-center max-w-[700px]">
             <li
               v-for="(artist, index) in album.artists"
               :key="artist.id"
@@ -62,7 +68,7 @@ init();
             >
               <router-link
                 :to="'/artists/' + artist.id"
-                class="hover:underline font-semibold flex items-center"
+                class="hover:underline font-semibold flex items-center text-ellipsis"
                 >{{ artist.name }}</router-link
               >
               <span v-if="index !== album.artists.length - 1">, &nbsp;</span>

@@ -1,22 +1,57 @@
 <script setup lang="ts">
+import { searchTrack } from '@/api/spotify';
 import { usePlayerStore } from '@/stores/player';
+import type { Track } from 'types/track';
 import { ref } from 'vue';
 
 const store = usePlayerStore();
 
-const trackUrl = ref<String>('');
-const trackName = ref<String>('');
+const track = ref<Track | null>(null);
 
-store.$subscribe((mutation, state) => {
-  trackUrl.value = state.trackPreview;
-  trackName.value = state.trackName;
+store.$subscribe(async (mutation, state) => {
+  track.value = await searchTrack(state.trackId);
 });
 </script>
 
 <template>
-  <p>{{ trackName }}</p>
-  <audio controls class="w-[800px]" :src="trackUrl">
-    <source :src="trackUrl" />
-  </audio>
-  <div></div>
+  <div
+    class="flex items-center fixed bottom-0 w-full text-white p-4 bg-slate-800"
+    v-if="track"
+  >
+    <img :src="track.album.images[2].url" :alt="track.name" class="mr-4" />
+    <div class="flex-col items-baseline">
+      <p class="w-[300px] whitespace-nowrap overflow-hidden text-ellipsis">
+        {{ track.name }}
+      </p>
+      <ul
+        class="flex w-[300px] whitespace-nowrap overflow-hidden text-ellipsis"
+      >
+        <li
+          v-for="(artist, index) in track.artists"
+          :key="artist.id"
+          class="flex items-center font-semibold"
+        >
+          <router-link
+            :to="'/artists/' + artist.id"
+            class="hover:underline font-semibold flex items-center"
+            >{{ artist.name }}</router-link
+          >
+          <span v-if="index !== track.artists.length - 1">, &nbsp;</span>
+        </li>
+      </ul>
+    </div>
+    <audio
+      controls
+      class="w-[800px] ml-64"
+      :src="(track.preview_url as string)"
+      autoplay
+      loop
+    >
+      <source :src="(track.preview_url as string)" />
+    </audio>
+  </div>
+  <div
+    v-else
+    class="flex items-center justify-between fixed bottom-0 w-full text-white h-[86px] bg-slate-800"
+  ></div>
 </template>

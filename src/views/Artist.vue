@@ -30,12 +30,13 @@ init();
 </script>
 
 <template>
-  <main
-    class="p-16 bg-[#0f172a] text-white min-h-screen"
-    v-if="artist !== null"
-  >
+  <main class="p-16 bg-[#0f172a] text-white min-h-screen" v-if="artist">
     <div class="flex gap-x-3 mb-16">
-      <img :src="artist.images[1].url" :alt="artist.id" />
+      <img
+        :src="artist.images[1].url"
+        :alt="artist.id"
+        class="object-contain"
+      />
       <div class="flex flex-col justify-end">
         <h1 class="text-9xl font-extrabold">
           {{ artist.name }}
