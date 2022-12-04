@@ -8,7 +8,7 @@ defineProps<{ tracks: Tracks }>();
 <template>
   <table class="w-full border-separate border-spacing-x-0 border-spacing-y-3">
     <tr class="text-[#b1b1b1]">
-      <th class="w-16 border-b border-slate-800 pb-3">#</th>
+      <th class="w-16 border-b border-slate-800 pb-3 max-sm:hidden">#</th>
       <th class="grow text-left border-b border-slate-800 pb-3">TITRE</th>
       <th class="text-right border-b border-slate-800 pb-3">🕒</th>
       <th class="border-b border-slate-800 pb-3"></th>

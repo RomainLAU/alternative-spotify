@@ -27,7 +27,7 @@ init();
   >
     <SearchBar />
     <div v-if="albums">
-      <ul class="flex gap-7 mt-12 flex-wrap justify-center">
+      <ul class="flex gap-7 mt-12 mb-4 flex-wrap justify-center">
         <li
           v-for="album in albums?.items"
           :key="album.id"
@@ -69,6 +69,6 @@ init();
         </li>
       </ul>
     </div>
-    <p v-else>No query</p>
+    <p v-else class="text-center">No data found...</p>
   </main>
 </template>

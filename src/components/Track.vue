@@ -29,14 +29,14 @@ store.$subscribe((mutation, state) => {
       'text-green-500 hover:text-green-600': trackId === track.id,
     }"
     v-if="track && typeof track !== 'undefined'"
-    @dblclick="playTrack(track?.id)"
+    @click="playTrack(track?.id)"
   >
-    <td class="text-center rounded-l-lg p-1">
+    <td class="text-center rounded-l-lg p-1 max-sm:hidden">
       {{ track.track_number }}
     </td>
-    <td class="flex flex-col items-baseline p-1">
+    <td class="flex flex-col items-baseline p-1 max-w-[175px] sm:max-w-sm">
       <p
-        class="text-base text-white max-w-sm overflow-hidden text-ellipsis whitespace-nowrap"
+        class="text-base text-white max-w-[175px] sm:max-w-sm overflow-hidden text-ellipsis whitespace-nowrap"
         :class="{
           'text-green-500 hover:text-green-600': trackId === track.id,
         }"
@@ -46,7 +46,7 @@ store.$subscribe((mutation, state) => {
       <div class="flex gap-x-2">
         <p v-if="track.explicit">🅴</p>
         <ul
-          class="flex max-w-sm overflow-hidden text-ellipsis whitespace-nowrap"
+          class="max-w-[175px] flex sm:max-w-sm overflow-hidden text-ellipsis whitespace-nowrap"
         >
           <li
             v-for="(artist, index) in track.artists"

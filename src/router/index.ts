@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/Home.vue';
 import ArtistView from '../views/Artist.vue';
 import SearchView from '../views/Search.vue';
 import AlbumView from '../views/Album.vue';
@@ -13,12 +12,13 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
+      redirect: '/search',
       component: defaultLayout,
       children: [
         {
-          path: '/',
+          path: '/search',
           name: 'home',
-          component: HomeView,
+          component: SearchView,
         },
       ],
     },

@@ -18,13 +18,19 @@ store.$subscribe(async (mutation, state) => {
     class="flex items-center fixed bottom-0 w-full text-white p-4 bg-slate-800"
     v-if="track"
   >
-    <img :src="track.album.images[2].url" :alt="track.name" class="mr-4" />
+    <img
+      :src="track.album.images[2].url"
+      :alt="track.name"
+      class="mr-4 max-sm:hidden"
+    />
     <div class="flex-col items-baseline">
-      <p class="w-[300px] whitespace-nowrap overflow-hidden text-ellipsis">
+      <p
+        class="w-[100px] sm:w-[300px] whitespace-nowrap overflow-hidden text-ellipsis"
+      >
         {{ track.name }}
       </p>
       <ul
-        class="flex w-[300px] whitespace-nowrap overflow-hidden text-ellipsis"
+        class="flex w-[100px] sm:w-[300px] whitespace-nowrap overflow-hidden text-ellipsis"
       >
         <li
           v-for="(artist, index) in track.artists"
@@ -42,7 +48,7 @@ store.$subscribe(async (mutation, state) => {
     </div>
     <audio
       controls
-      class="w-[800px] ml-64"
+      class="sm:w-[800px] max-sm:ml-[15%] sm:ml-64"
       :src="(track.preview_url as string)"
       autoplay
       loop
@@ -50,8 +56,4 @@ store.$subscribe(async (mutation, state) => {
       <source :src="(track.preview_url as string)" />
     </audio>
   </div>
-  <div
-    v-else
-    class="flex items-center justify-between fixed bottom-0 w-full text-white h-[86px] bg-slate-800"
-  ></div>
 </template>

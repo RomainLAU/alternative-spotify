@@ -29,7 +29,7 @@ store.$subscribe((mutation, state) => {
       'text-green-500 hover:text-green-600': trackId === topTrack.id,
     }"
     v-if="typeof index !== 'undefined' && topTrack"
-    @dblclick="playTrack(topTrack?.id)"
+    @click="playTrack(topTrack?.id)"
   >
     <td class="text-center rounded-l-lg p-1 w-12">
       <p>{{ index + 1 }}</p>
@@ -43,7 +43,7 @@ store.$subscribe((mutation, state) => {
     </td>
     <td class="flex flex-col items-baseline p-1 pl-4 grow">
       <p
-        class="text-base text-white max-w-lg overflow-hidden text-ellipsis whitespace-nowrap"
+        class="text-base text-white max-w-[175px] sm:max-w-sm overflow-hidden text-ellipsis whitespace-nowrap"
         :class="{
           'text-green-500 hover:text-green-400': trackId === topTrack.id,
         }"
@@ -53,7 +53,7 @@ store.$subscribe((mutation, state) => {
       <div class="flex gap-x-2">
         <p v-if="topTrack.explicit">🅴</p>
         <ul
-          class="flex max-w-lg overflow-hidden text-ellipsis whitespace-nowrap"
+          class="flex max-w-[175px] sm:max-w-sm overflow-hidden text-ellipsis whitespace-nowrap"
         >
           <li
             v-for="(artist, index) in topTrack.artists"
@@ -70,7 +70,7 @@ store.$subscribe((mutation, state) => {
         </ul>
       </div>
     </td>
-    <td class="rtl:mr-5 text-right p-1">
+    <td class="rtl:mr-5 text-right p-1 max-sm:hidden">
       {{ duration.minutes() }}:{{
         parseInt(duration.seconds().toString()) < 10
           ? '0' + duration.seconds()

@@ -45,17 +45,21 @@ init();
 </script>
 
 <template>
-  <main class="p-16 bg-[#0f172a] text-white min-h-screen" v-if="album">
-    <div class="flex gap-8">
+  <main class="sm:p-16 bg-[#0f172a] text-white min-h-screen" v-if="album">
+    <div
+      class="flex gap-8 flex-wrap justify-center sm:justify-start max-sm:flex-col mb-6 sm:mb-0"
+    >
       <img
         :src="album.images[1].url"
         :alt="album.name"
-        class="object-contain"
+        class="object-contain w-[200px] justify-self-center xl:w-[400px] lg:w-[350px] md:w-[300px] sm:w-[250px] max-sm:mb-6"
       />
       <div class="flex flex-col justify-end">
-        <p class="uppercase font-bold">{{ album.album_type }}</p>
+        <p class="uppercase font-bold hidden sm:block">
+          {{ album.album_type }}
+        </p>
         <h1
-          class="text-9xl font-extrabold mb-12 max-w-[900px] overflow-hidden text-ellipsis whitespace-nowrap"
+          class="xl:text-9xl lg:text-7xl md:text-5xl sm:text-3xl font-extrabold mb-2 sm:mb-12 max-w-[900px] overflow-hidden text-ellipsis whitespace-nowrap"
         >
           {{ album.name }}
         </h1>
@@ -78,15 +82,15 @@ init();
           <span class="text-xs self-center">●</span>
           &nbsp;{{ moment(album.release_date).format('YYYY') }}
           &nbsp;
-          <span class="text-xs self-center">●</span>
+          <span class="text-xs self-center hidden sm:block">●</span>
           &nbsp;
-          <p>
+          <p class="hidden sm:block">
             {{ album.total_tracks }}
             <span v-if="album.total_tracks > 1">titres</span
             ><span v-else>titre</span>,
           </p>
           &nbsp;
-          <p class="opacity-75">{{ totalDuration }}</p>
+          <p class="opacity-75 hidden sm:block">{{ totalDuration }}</p>
         </div>
       </div>
     </div>

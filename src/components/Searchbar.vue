@@ -16,7 +16,7 @@ init();
 </script>
 
 <template>
-  <form method="GET" class="self-center w-1/3">
+  <form method="GET" class="self-center sm:w-1/3 mt-8">
     <input
       v-model="search"
       class="text-black h-12 text-xl w-full rounded-lg p-2"
