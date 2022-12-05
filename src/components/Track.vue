@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import moment from 'moment';
+import format from 'format-duration';
 import type { TrackItem } from '../../types/album';
 import { usePlayerStore } from '@/stores/player';
 import { ref } from 'vue';
@@ -7,9 +7,7 @@ import { ref } from 'vue';
 const { updateTrack } = usePlayerStore();
 const store = usePlayerStore();
 
-const props = defineProps<{ track: TrackItem }>();
-
-const duration = moment.duration(props?.track?.duration_ms);
+defineProps<{ track: TrackItem }>();
 
 const playTrack = (trackId: string) => {
   updateTrack(trackId);
@@ -64,11 +62,7 @@ store.$subscribe((mutation, state) => {
       </div>
     </td>
     <td class="rtl:mr-5 text-right p-1">
-      {{ duration.minutes() }}:{{
-        parseInt(duration.seconds().toString()) < 10
-          ? '0' + duration.seconds()
-          : duration.seconds()
-      }}
+      {{ format(track.duration_ms) }}
     </td>
     <td class="rounded-r-lg p-1"></td>
   </tr>

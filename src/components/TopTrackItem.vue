@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import moment from 'moment';
+import format from 'format-duration';
 import type { TopTrack } from '../../types/album';
 import { usePlayerStore } from '@/stores/player';
 import { ref } from 'vue';
@@ -8,9 +8,7 @@ import useImage from '@/hooks/useImage';
 const store = usePlayerStore();
 const { updateTrack } = usePlayerStore();
 
-const props = defineProps<{ topTrack: TopTrack; index: number }>();
-
-const duration = moment.duration(props?.topTrack?.duration_ms);
+defineProps<{ topTrack: TopTrack; index: number }>();
 
 const playTrack = (trackId: string) => {
   updateTrack(trackId);
@@ -74,11 +72,7 @@ const { md } = useImage();
       </div>
     </td>
     <td class="rtl:mr-5 text-right p-1 max-sm:hidden">
-      {{ duration.minutes() }}:{{
-        parseInt(duration.seconds().toString()) < 10
-          ? '0' + duration.seconds()
-          : duration.seconds()
-      }}
+      {{ format(topTrack.duration_ms) }}
     </td>
     <td class="rounded-r-lg p-1"></td>
   </tr>

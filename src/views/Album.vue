@@ -3,7 +3,7 @@ import { searchAlbum } from '@/api/spotify';
 import type { Album, TrackItem } from '../../types/album';
 import { ref } from 'vue';
 import { useRoute, useRouter, type LocationQueryValue } from 'vue-router';
-import moment from 'moment';
+import format from 'format-duration';
 import Tracks from '@/components/Tracks.vue';
 import useImage from '@/hooks/useImage';
 
@@ -18,7 +18,7 @@ const albumParam: string | LocationQueryValue[] = route.params.id
   ? route.params.id
   : '';
 
-let convertingDuration = null;
+let convertingDuration: number = 0;
 
 async function init() {
   if (albumParam.length !== 0) {
@@ -26,16 +26,10 @@ async function init() {
 
     if (album.value) {
       album.value.tracks.items.forEach((track: TrackItem) => {
-        totalDuration.value += track.duration_ms;
+        convertingDuration += track.duration_ms;
       });
 
-      convertingDuration = moment.duration(totalDuration.value);
-
-      if (convertingDuration.hours() > 0) {
-        totalDuration.value = `${convertingDuration.hours()} h ${convertingDuration.minutes()} min ${convertingDuration.seconds()} s`;
-      } else {
-        totalDuration.value = `${convertingDuration.minutes()} min ${convertingDuration.seconds()} s`;
-      }
+      totalDuration.value = format(convertingDuration);
     }
   } else {
     router.push('/search');
@@ -83,7 +77,7 @@ const { sm } = useImage();
           </ul>
           &nbsp;
           <span class="text-xs self-center">●</span>
-          &nbsp;{{ moment(album.release_date).format('YYYY') }}
+          &nbsp;{{ new Date(album.release_date).getFullYear() }}
           &nbsp;
           <span class="text-xs self-center hidden sm:block">●</span>
           &nbsp;

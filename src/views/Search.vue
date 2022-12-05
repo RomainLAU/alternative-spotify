@@ -4,7 +4,6 @@ import SearchBar from '@/components/Searchbar.vue';
 import type { SearchAlbums } from 'types/album';
 import { ref } from 'vue';
 import { useRoute, type RouteLocationNormalizedLoaded } from 'vue-router';
-import moment from 'moment';
 import useImage from '@/hooks/useImage';
 
 const route: RouteLocationNormalizedLoaded = useRoute();
@@ -50,7 +49,7 @@ const { sm } = useImage();
             <div
               class="max-w-[300px] flex whitespace-nowrap overflow-hidden text-ellipsis"
             >
-              {{ moment(album.release_date).format('YYYY') }}&nbsp;<span
+              {{ new Date(album.release_date).getFullYear() }}&nbsp;<span
                 class="text-xs self-center"
                 >●</span
               >
