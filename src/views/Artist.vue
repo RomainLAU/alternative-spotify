@@ -5,6 +5,7 @@ import { ref } from 'vue';
 import { useRoute, useRouter, type LocationQueryValue } from 'vue-router';
 import type { TopTracks } from 'types/album';
 import TopTracksList from '@/components/TopTracksList.vue';
+import useImage from '@/hooks/useImage';
 
 const route = useRoute();
 const router = useRouter();
@@ -27,6 +28,8 @@ async function init() {
 }
 
 init();
+
+const { sm } = useImage();
 </script>
 
 <template>
@@ -36,7 +39,7 @@ init();
   >
     <div class="flex gap-x-3 mb-16 max-sm:flex-col">
       <img
-        :src="artist.images[1].url"
+        :src="artist.images[sm].url"
         :alt="artist.id"
         class="sm:object-contain min-w-[200px] w-[200px] justify-self-center xl:w-[400px] lg:w-[350px] md:w-[300px] sm:w-[250px] max-sm:mb-6"
       />

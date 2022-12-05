@@ -3,6 +3,7 @@ import { searchTrack } from '@/api/spotify';
 import { usePlayerStore } from '@/stores/player';
 import type { Track } from 'types/track';
 import { ref } from 'vue';
+import useImage from '@/hooks/useImage';
 
 const store = usePlayerStore();
 
@@ -11,6 +12,8 @@ const track = ref<Track | null>(null);
 store.$subscribe(async (mutation, state) => {
   track.value = await searchTrack(state.trackId);
 });
+
+const { md } = useImage();
 </script>
 
 <template>
@@ -19,7 +22,7 @@ store.$subscribe(async (mutation, state) => {
     v-if="track"
   >
     <img
-      :src="track.album.images[2].url"
+      :src="track.album.images[md].url"
       :alt="track.name"
       class="mr-4 max-sm:hidden"
     />

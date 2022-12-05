@@ -5,6 +5,7 @@ import { ref } from 'vue';
 import { useRoute, useRouter, type LocationQueryValue } from 'vue-router';
 import moment from 'moment';
 import Tracks from '@/components/Tracks.vue';
+import useImage from '@/hooks/useImage';
 
 const route = useRoute();
 const router = useRouter();
@@ -42,6 +43,8 @@ async function init() {
 }
 
 init();
+
+const { sm } = useImage();
 </script>
 
 <template>
@@ -50,7 +53,7 @@ init();
       class="flex gap-8 flex-wrap justify-center sm:justify-start max-sm:flex-col mb-6 sm:mb-0"
     >
       <img
-        :src="album.images[1].url"
+        :src="album.images[sm].url"
         :alt="album.name"
         class="object-contain w-[200px] justify-self-center xl:w-[400px] lg:w-[350px] md:w-[300px] sm:w-[250px] max-sm:mb-6"
       />

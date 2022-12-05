@@ -3,6 +3,7 @@ import moment from 'moment';
 import type { TopTrack } from '../../types/album';
 import { usePlayerStore } from '@/stores/player';
 import { ref } from 'vue';
+import useImage from '@/hooks/useImage';
 
 const store = usePlayerStore();
 const { updateTrack } = usePlayerStore();
@@ -20,6 +21,8 @@ const trackId = ref<string | null>(null);
 store.$subscribe((mutation, state) => {
   trackId.value = state.trackId;
 });
+
+const { md } = useImage();
 </script>
 
 <template>
@@ -36,7 +39,7 @@ store.$subscribe((mutation, state) => {
     </td>
     <td class="w-12">
       <img
-        :src="topTrack.album.images[2].url"
+        :src="topTrack.album.images[md].url"
         :alt="topTrack.name"
         class="object-contain"
       />

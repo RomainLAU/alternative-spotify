@@ -5,6 +5,7 @@ import type { SearchAlbums } from 'types/album';
 import { ref } from 'vue';
 import { useRoute, type RouteLocationNormalizedLoaded } from 'vue-router';
 import moment from 'moment';
+import useImage from '@/hooks/useImage';
 
 const route: RouteLocationNormalizedLoaded = useRoute();
 
@@ -19,6 +20,8 @@ async function init() {
 }
 
 init();
+
+const { sm } = useImage();
 </script>
 
 <template>
@@ -35,7 +38,7 @@ init();
         >
           <router-link :to="`/albums/${album.id}`">
             <img
-              :src="album.images[1].url"
+              :src="album.images[sm].url"
               alt="album.name"
               class="object-contain"
             />
