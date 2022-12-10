@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { searchAlbum } from '@/api/spotify';
 import type { Album, TrackItem } from '../../types/album';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useRoute, useRouter, type LocationQueryValue } from 'vue-router';
 import format from 'format-duration';
 import Tracks from '@/components/Tracks.vue';
@@ -12,25 +12,27 @@ const router = useRouter();
 
 const album = ref<Album | null>(null);
 
-const totalDuration = ref<string>('');
-
 const albumParam: string | LocationQueryValue[] = route.params.id
   ? route.params.id
   : '';
 
-let convertingDuration: number = 0;
+const totalDuration = computed(() => {
+  let total: number = 0;
+
+  if (album.value) {
+    total = album.value.tracks.items.reduce(
+      (totalDuration: number, track: TrackItem) =>
+        totalDuration + track.duration_ms,
+      0
+    );
+  }
+
+  return format(total);
+});
 
 async function init() {
   if (albumParam.length !== 0) {
     album.value = await searchAlbum(albumParam);
-
-    if (album.value) {
-      album.value.tracks.items.forEach((track: TrackItem) => {
-        convertingDuration += track.duration_ms;
-      });
-
-      totalDuration.value = format(convertingDuration);
-    }
   } else {
     router.push('/search');
   }
